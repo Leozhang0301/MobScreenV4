@@ -48,6 +48,17 @@ namespace MobScreenV4
 
         private void DebugForm_Load(object sender, EventArgs e)
         {
+            //停留点下拉框更新
+            int y = 0;
+            for(int i = 0; i < config.stayPoint_Info.Length; i++)
+            {
+                if (config.stayPoint_Info[i].used_flg == "Y")
+                {
+                    box_stayPoints.Items.Add(y + 1);
+                    y++;
+                }
+            }
+            box_stayPoints.SelectedIndex = 0;
             validDis = lab_validDis;
             motorSpdNum.Value = config.motor.speed;
             motorIncrSpdNum.Value = config.motor.AccSpeed;

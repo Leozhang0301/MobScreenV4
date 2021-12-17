@@ -242,6 +242,7 @@ namespace MobScreenV4
                     case 0x11:
                         stayPointForm.ShowTipsInfo("停留点信息读取成功！", Color.Green);
                         stayPointForm.refreshDataGrid();
+                        saveData();
                         break;
                     case 0x13:
                         debugForm.validDis.Text = total_length.ToString();
@@ -362,7 +363,8 @@ namespace MobScreenV4
                             //如果head合法
                             if (head < config.stayPoint_Info.Length)
                             {
-                                //这里应该执行控制器到位之后的操作  播图片或者视频
+                                //这里应该执行控制器到位之后
+                                //\的操作  播图片或者视频
                             }
                             else
                                 MessageBox.Show("返回的停留点信息不合法");
