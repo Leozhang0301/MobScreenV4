@@ -12,3 +12,17 @@ C:\Users\98558\Desktop\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.DebugForm.r
 C:\Users\98558\Desktop\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.MainCtrlForm.resources
 C:\Users\98558\Desktop\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.RegistForm.resources
 C:\Users\98558\Desktop\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.StayPointForm.resources
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\bin\Debug\MobScreenV4.exe.config
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\bin\Debug\MobScreenV4.exe
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\bin\Debug\MobScreenV4.pdb
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.csproj.AssemblyReference.cache
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.DebugForm.resources
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.MainFrom.resources
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.MainCtrlForm.resources
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.Properties.Resources.resources
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.RegistForm.resources
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.StayPointForm.resources
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.csproj.GenerateResource.cache
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.csproj.CoreCompileInputs.cache
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.exe
+D:\微信文件\WeChat Files\wxid_nfup01g7q2r222\FileStorage\File\2021-12\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.pdb

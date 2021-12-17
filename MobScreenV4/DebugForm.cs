@@ -17,7 +17,7 @@ namespace MobScreenV4
         public static Int32 g_recvCmdAck = 0;//接收指令
         public static byte[] g_SerialSendBuf = new byte[256];//串口发送缓冲区
         public static int g_mov_flg = 0;//正在运行标志位
-        public static Label validDis;
+        public Label validDis;
         private Config config;//保存从父窗口传过来的配置
         private SerialPort port;//保存从父窗口传过来的串口
         private MainFrom form;
@@ -195,14 +195,14 @@ namespace MobScreenV4
                 form.g_SerialSendBuf[8] = (byte)(crc >> 8);
 
                 PackageCmd(9);
-                //新版控制器在运行过程中已经返回位置了
-                //不需要开定时器主动查询位置
-                ////启动定时器 查询屏幕位置
-                //askScrPosiTimer.Enabled = true;
-                //askScrPosiTimer.Interval = 200;
-                //askScrPosiTimer.Start();
                 manualBackBtn.Text = "停止";
                 manualForwardBtn.Enabled = false;
+                //新版控制器在运行过程中已经返回位置了
+                //不需要开定时器主动查询位置
+                ////启动定时器 更新控件
+                timer_refreshUI.Enabled = true;
+                timer_refreshUI.Interval = 200;
+                timer_refreshUI.Start();
             }
             else
             {
@@ -210,6 +210,8 @@ namespace MobScreenV4
                 g_mov_flg = 0;
                 manualBackBtn.Text = "后退";
                 manualForwardBtn.Enabled = true;
+                timer_refreshUI.Enabled = false;
+                timer_refreshUI.Stop();
             }
         }
 
@@ -240,10 +242,10 @@ namespace MobScreenV4
                 manualForwardBtn.Text = "停止";
                 manualBackBtn.Enabled = false;
                 g_mov_flg = 1;
-                ////启动定时器，实时更新距离
-                //askScrPosiTimer.Enabled = true;
-                //askScrPosiTimer.Interval = 200;
-                //askScrPosiTimer.Start();
+                //启动定时器  实时更新控件
+                timer_refreshUI.Enabled = true;
+                timer_refreshUI.Interval = 200;
+                timer_refreshUI.Start();
             }
             else
             {
@@ -251,6 +253,8 @@ namespace MobScreenV4
                 g_mov_flg = 0;
                 manualForwardBtn.Text = "前进";
                 manualBackBtn.Enabled = true;
+                timer_refreshUI.Enabled = false;
+                timer_refreshUI.Stop();
             }
         }
         #endregion
@@ -324,15 +328,10 @@ namespace MobScreenV4
             PackageCmd(9);
 
             //定时查询距离定时器
-            askScrPosiTimer.Enabled = false;
-            askScrPosiTimer.Stop();
+            timer_refreshUI.Enabled = false;
+            timer_refreshUI.Stop();
         }
 
-        private void askScrPosiTimer_Tick(object sender, EventArgs e)
-        {
-            //200ms发送一次获取位置指令
-            askScreenPosition();
-        }
 
         /// <summary>
         /// 查询当前位置
@@ -357,8 +356,15 @@ namespace MobScreenV4
         {
             lab_validDis.Text = " ";
             autoMesureDistance();
-            WaitOkFromControler(0x13);
-            ShowTipsInfo("测量有效距离期间，请勿操作软件，直至测量完毕！",Color.Red);
+            if (WaitOkFromControler(0x13))
+            {
+                DialogResult result = MessageBox.Show("正在测距，控制器停止前不要关闭此窗口");
+                //if (result == DialogResult.OK)
+                //{
+                //    lab_validDis.Text = form.total_length.ToString();
+                //}
+            }
+
         }
         public void autoMesureDistance()
         {
@@ -427,7 +433,6 @@ namespace MobScreenV4
         private void btn_validDisWrite_Click(object sender, EventArgs e)
         {
             //手动写入总距离
-            //设置电机运行速度
             UInt16 crc;
             form.g_SerialSendBuf[0] = 0XAA;
             form.g_SerialSendBuf[1] = 0X01;
@@ -558,8 +563,12 @@ namespace MobScreenV4
             PackageCmd(11);
         }
 
+
         #endregion
 
-        
+        private void timer_refreshUI_Tick(object sender, EventArgs e)
+        {
+            DisLabel.Text = config.motor.currentPosition.ToString();
+        }
     }
 }

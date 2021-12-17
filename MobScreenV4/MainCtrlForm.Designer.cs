@@ -29,36 +29,54 @@ namespace MobScreenV4
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.btn_run = new System.Windows.Forms.Button();
+            this.btn_stopRun = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // btn_run
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("微软雅黑", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(308, 207);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(283, 37);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Main Control Form";
+            this.btn_run.FlatAppearance.BorderSize = 0;
+            this.btn_run.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_run.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btn_run.Location = new System.Drawing.Point(570, 100);
+            this.btn_run.Name = "btn_run";
+            this.btn_run.Size = new System.Drawing.Size(114, 86);
+            this.btn_run.TabIndex = 0;
+            this.btn_run.Text = "开始运行";
+            this.btn_run.UseVisualStyleBackColor = true;
+            this.btn_run.Click += new System.EventHandler(this.btn_run_Click);
+            // 
+            // btn_stopRun
+            // 
+            this.btn_stopRun.FlatAppearance.BorderSize = 0;
+            this.btn_stopRun.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_stopRun.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btn_stopRun.Location = new System.Drawing.Point(570, 242);
+            this.btn_stopRun.Name = "btn_stopRun";
+            this.btn_stopRun.Size = new System.Drawing.Size(114, 86);
+            this.btn_stopRun.TabIndex = 1;
+            this.btn_stopRun.Text = "停止运行";
+            this.btn_stopRun.UseVisualStyleBackColor = true;
             // 
             // MainCtrlForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(1161, 698);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(871, 558);
+            this.Controls.Add(this.btn_stopRun);
+            this.Controls.Add(this.btn_run);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainCtrlForm";
             this.Text = "MainCtrlForm";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btn_run;
+        private System.Windows.Forms.Button btn_stopRun;
     }
 }

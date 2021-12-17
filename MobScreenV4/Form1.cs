@@ -17,6 +17,7 @@ namespace MobScreenV4
 {
     public partial class MainFrom : Form
     {
+        #region 全局变量
         public Int32 g_recvCmdAck = 0;//接收指令
         public  byte[] g_SerialRxBuf;//串口接收缓存区
         public  byte[] g_SerialSendBuf = new byte[256];//串口发送缓冲区
@@ -25,6 +26,12 @@ namespace MobScreenV4
         public static byte g_versionB = 0;          //次版本号
         public static StringBuilder needUpdateForm = new StringBuilder();
         public UInt16 total_length = 0;         //总距离
+        public static string[] szPorts;         //机器上全部串口列表
+        public DebugForm debugForm;
+        public StayPointForm stayPointForm;
+        public bool manual_ask = false;  //手动查询控制器位置标志位
+        private static byte moveDirection=0;  //0为向左移动   1为向右移动  3为停止状态
+        #endregion
         #region 拖拽窗口导入外部函数
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
 
@@ -52,6 +59,7 @@ namespace MobScreenV4
                     b.Serialize(fs, config);
                 }
             }
+            //读取配置文件信息
             extract();
             #region 导航栏
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
@@ -60,23 +68,22 @@ namespace MobScreenV4
             PnlNav.Left = BtnMainCtrl.Left;
             BtnMainCtrl.BackColor = Color.FromArgb(46, 51, 73);
             #endregion
+            //获取本机所有端口号
+            szPorts = SerialPort.GetPortNames();
         }
 
         private void MainFrom_Load(object sender, EventArgs e)
         {
             versionText.Text = config.version;
-            CTRLSerialPort.PortName = "COM4";
-            CTRLSerialPort.BaudRate = 9600;
-            CTRLSerialPort.DataBits = 8;              //8位数据位
-            CTRLSerialPort.StopBits = StopBits.One;   //1停止位
-            CTRLSerialPort.Parity = Parity.None;      //无校验
-            if (!CTRLSerialPort.IsOpen)
+            if (config.net_or_com == "COM")
             {
-                CTRLSerialPort.Open();
+                if (openPort(config.portName))
+                {
+                    connectControl();
+                    Thread.Sleep(1000);
+                    CtrlVerText.Text = "V" + g_versionA.ToString() + "." + g_versionB.ToString();
+                }
             }
-            connectControl();
-            Thread.Sleep(1000);
-            CtrlVerText.Text = "V"+g_versionA.ToString() + "." + g_versionB.ToString();
         }
         #region 序列化反/序列化
         public void saveData()
@@ -129,7 +136,8 @@ namespace MobScreenV4
             PnlNav.Height = BtnStayPoint.Height;
             PnlNav.Top = BtnStayPoint.Top;
             BtnStayPoint.BackColor = Color.FromArgb(46, 51, 73);
-            openChildForm(new StayPointForm());
+            stayPointForm = new StayPointForm(config, this);
+            openChildForm(stayPointForm);
         }
 
         private void BtnRegister_Click(object sender, EventArgs e)
@@ -146,7 +154,8 @@ namespace MobScreenV4
             PnlNav.Top = BtnDebug.Top;
             BtnDebug.BackColor = Color.FromArgb(46, 51, 73);
             //openChildForm(new DebugForm(config,CTRLSerialPort));
-            openChildForm(new DebugForm(config, this));
+            debugForm = new DebugForm(config, this);
+            openChildForm(debugForm);
         }
 
         private Form activeForm = null;
@@ -180,6 +189,7 @@ namespace MobScreenV4
             this.Close();
         }
         private Point formPoint;
+
         private void panel3_MouseDown(object sender, MouseEventArgs e)
         {
             formPoint = new Point(e.X, e.Y);
@@ -217,6 +227,7 @@ namespace MobScreenV4
 
         #endregion
 
+        //更新其他控件
         private void refresh_form_has_return()
         {
             byte cmd = 0;
@@ -228,14 +239,21 @@ namespace MobScreenV4
                 cmd = (byte)needUpdateForm[i];
                 switch (cmd)
                 {
+                    case 0x11:
+                        stayPointForm.ShowTipsInfo("停留点信息读取成功！", Color.Green);
+                        stayPointForm.refreshDataGrid();
+                        break;
                     case 0x13:
-                        DebugForm.validDis.Text = total_length.ToString();
+                        debugForm.validDis.Text = total_length.ToString();
                         Console.WriteLine(total_length);
                         break;
                     default:
                         break;
                 }
+                i++;
+                tmp--;
             }
+            needUpdateForm.Clear();
         }
 
         #region 串口接收数据处理
@@ -303,24 +321,67 @@ namespace MobScreenV4
                     //通过检验
                     if (crc == crc_rx)
                     {
+                        //写入控制器参数
                         if (instr[4] == 0x06)
                         {
                             findOkChar(6);
                         }
+                        //写入有效距离
+                        else if (instr[4] == 0x09)
+                        {
+                            findOkChar(9);
+                        }
+                        //写入停留点信息
+                        else if (instr[4] == 0x10)
+                        {
+                            findOkChar(10);
+                        }
+                        //读取停留点信息
+                        else if (instr[4] == 0x11)
+                        {
+                            needUpdateForm.Append((char)0x11);
+                            ParsePointInfo();
+                            this.BeginInvoke(ManageReturnCmd);
+                        }
+                        //返回停留点位置信息
+                        //到达停留点后主动上传/查询读取
+                        else if (instr[4] == 0x12)
+                        {
+                            //如果是主动查询的话不执行到位动作
+                            //可能会在两个停留点之间
+                            byte head = instr[6];
+                            byte tail = instr[7];
+                            if (manual_ask)
+                            {
+                                manual_ask = false;
+                                config.motor.stayPointact = head;
+                                return;
+                            }
+                            config.motor.inPosiFlag = true;
+                            head--;
+                            //如果head合法
+                            if (head < config.stayPoint_Info.Length)
+                            {
+                                //这里应该执行控制器到位之后的操作  播图片或者视频
+                            }
+                            else
+                                MessageBox.Show("返回的停留点信息不合法");
+                        }
+                        //测量有效距离
                         else if (instr[4] == 0x13)
                         {
                             g_recvCmdAck = 0;
                             findOkChar(0x13);
                             if (g_recvCmdAck != 0x13)
                             {
-                                needUpdateForm.Append(0x13);
-                                //更新调试页面滑轨屏的位置
+                                needUpdateForm.Append((char)0X13);
                                 total_length = g_SerialRxBuf[7];
                                 total_length <<= 8;
                                 total_length |= g_SerialRxBuf[6];
                                 this.BeginInvoke(ManageReturnCmd);
                             }
                         }
+                        //查询版本号/连接控制器
                         else if (instr[4] == 0x15)
                         {
                             g_versionA = instr[6];
@@ -328,6 +389,29 @@ namespace MobScreenV4
                             config.motor.versionA = g_versionA.ToString();
                             config.motor.versionB = g_versionB.ToString();
                             saveData();
+                        }
+                        //控制器正在运行返回当前位置
+                        else if (instr[4] == 0x16)
+                        {
+                            config.motor.currentPosition = instr[6];
+                            config.motor.currentPosition <<= 8;
+                            config.motor.currentPosition |= instr[7];
+                            //判断指令内部方向
+                            if (instr[8] == 1)
+                            {
+                                //如果配置文件里为左起点
+                                if (config.startPosition == 0)
+                                    moveDirection = 0;
+                                else
+                                    moveDirection = 1;
+                            }
+                            else
+                            {
+                                if (config.startPosition == 0)
+                                    moveDirection = 1;
+                                else
+                                    moveDirection = 0;
+                            }
                         }
                     }
                     else
@@ -337,6 +421,35 @@ namespace MobScreenV4
             #endregion
 
         }
+
+        //解析停留点信息
+        private void ParsePointInfo()
+        {
+            UInt16 data_len = g_SerialRxBuf[5];
+            byte start = 0;
+            if (data_len >= 256)
+            {
+                MessageBox.Show("接收数据长度超限！", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                return;
+            }
+            for (int j = 0; j < 128; j++)
+            {
+                config.stayPoint_Info[j].used_flg = "N";
+            }
+
+            UInt16 i = 0;
+            while (data_len > 0)
+            {
+                config.stayPoint_Info[start].distance = g_SerialRxBuf[7 + i];
+                config.stayPoint_Info[start].distance <<= 8;
+                config.stayPoint_Info[start].distance |= g_SerialRxBuf[6 + i];
+                config.stayPoint_Info[start].used_flg = "Y";
+                data_len -= 4;
+                i += 4;
+                start++;
+            }
+        }
+
         //计算校验位
         public static UInt16 getCRC_Rx(int len, byte[] g_SerialRxBuf)
         {
@@ -362,7 +475,7 @@ namespace MobScreenV4
             }
             return Convert.ToUInt16(CRC);
         }
-        private ushort getCRC(int len)
+        public ushort getCRC(int len)
         {
             int CRC = 0x0000ffff;
             int POLYNOMIAL = 0x0000a001;
@@ -386,6 +499,7 @@ namespace MobScreenV4
             }
             return Convert.ToUInt16(CRC);
         }
+
         //只适合没有返回值的指令，判定指令是否返回ok
         private void findOkChar(UInt16 cmd)
         {
@@ -415,6 +529,30 @@ namespace MobScreenV4
             g_SerialSendBuf[7] = (byte)(crc >> 8);
 
             CTRLSerialPort.Write(g_SerialSendBuf, 0, 8);
+        }
+
+        //打开串口
+        private bool openPort(string portName)
+        {
+            CTRLSerialPort.PortName = portName;
+            CTRLSerialPort.BaudRate = 9600;
+            CTRLSerialPort.DataBits = 8;              //8位数据位
+            CTRLSerialPort.StopBits = StopBits.One;   //1停止位
+            CTRLSerialPort.Parity = Parity.None;      //无校验
+            if (!CTRLSerialPort.IsOpen)
+            {
+                try
+                {
+                    CTRLSerialPort.Open();
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("串口打开失败!!!"+ex.ToString());
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
