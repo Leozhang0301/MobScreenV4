@@ -17,6 +17,8 @@ namespace MobScreenV4
         public int totalLength = 1000;//全长
         public string portName = "COM5";
         public stayPointInfo[] stayPoint_Info;
+        public string running_mode = "time_con";//time_con 定时模式/film_con 节目模式/run_once 只运行一遍
+        public int stayPointCnt = 0;//记录停留点的个数
         //停留点信息结构体
         [Serializable]
         public struct stayPointInfo

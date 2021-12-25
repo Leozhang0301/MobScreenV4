@@ -273,7 +273,7 @@ namespace MobScreenV4
         #region 发送指令
         private void PackageCmd(Int32 byte_count)
         {
-            if (form.config.net_or_com== "COM")
+            if (config.net_or_com== "COM")
             {
                 //Console.WriteLine(BitConverter.ToString(form.g_SerialSendBuf.Take(byte_count).ToArray()));
                 form.CTRLSerialPort.Write(form.g_SerialSendBuf, 0, byte_count);

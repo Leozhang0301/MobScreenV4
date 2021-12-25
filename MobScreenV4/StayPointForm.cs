@@ -180,7 +180,7 @@ namespace MobScreenV4
                 stop_run();
                 mov_flag = false;
                 btn_back.Text = "后退";
-                btn_back.Enabled = true;
+                btn_forward.Enabled = true;
                 timer_refreshUI.Enabled = false;
                 timer_refreshUI.Stop();
             }
@@ -328,6 +328,7 @@ namespace MobScreenV4
                     tmp++;
                 }
             }
+            config.stayPointCnt=tmp-1;
         }
 
         //删除停留点之后要更新配置文件内部的停留点信息
@@ -418,6 +419,21 @@ namespace MobScreenV4
         private void timer_refreshUI_Tick(object sender, EventArgs e)
         {
             label_posi.Text = config.motor.currentPosition.ToString();
+        }
+
+        private void stayPointGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == 3)
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    int index = stayPointGridView.CurrentCell.RowIndex;
+                    config.stayPoint_Info[index].file_path = dialog.FileName;
+                    stayPointGridView.Rows[index].Cells[3].Value = dialog.FileName;
+                    form.saveData();
+                }
+            }
         }
     }
 }
