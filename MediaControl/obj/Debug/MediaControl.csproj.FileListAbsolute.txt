@@ -1,0 +1,15 @@
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\bin\Debug\MediaControl.exe.config
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\bin\Debug\MediaControl.exe
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\bin\Debug\MediaControl.pdb
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\obj\Debug\MediaControl.csproj.AssemblyReference.cache
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\obj\Debug\MediaControl.Properties.Resources.resources
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\obj\Debug\MediaControl.csproj.GenerateResource.cache
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\obj\Debug\MediaControl.csproj.CoreCompileInputs.cache
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\obj\Debug\MediaControl.exe
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\obj\Debug\MediaControl.pdb
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\bin\Debug\Interop.WMPLib.dll
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\bin\Debug\AxInterop.WMPLib.dll
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\obj\Debug\Interop.WMPLib.dll
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\obj\Debug\AxInterop.WMPLib.dll
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\obj\Debug\MediaControl.csproj.ResolveComReference.cache
+C:\Users\98558\Desktop\MobScreenV4\MediaControl\obj\Debug\MediaControl.Form1.resources

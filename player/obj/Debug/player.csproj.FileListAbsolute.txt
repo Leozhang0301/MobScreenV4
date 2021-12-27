@@ -1,9 +1,0 @@
-C:\Users\98558\Desktop\MobScreenV4\player\bin\Debug\player.exe.config
-C:\Users\98558\Desktop\MobScreenV4\player\bin\Debug\player.exe
-C:\Users\98558\Desktop\MobScreenV4\player\bin\Debug\player.pdb
-C:\Users\98558\Desktop\MobScreenV4\player\obj\Debug\player.csproj.AssemblyReference.cache
-C:\Users\98558\Desktop\MobScreenV4\player\obj\Debug\player.Properties.Resources.resources
-C:\Users\98558\Desktop\MobScreenV4\player\obj\Debug\player.csproj.GenerateResource.cache
-C:\Users\98558\Desktop\MobScreenV4\player\obj\Debug\player.csproj.CoreCompileInputs.cache
-C:\Users\98558\Desktop\MobScreenV4\player\obj\Debug\player.exe
-C:\Users\98558\Desktop\MobScreenV4\player\obj\Debug\player.pdb
