@@ -6,6 +6,8 @@ using System.Drawing;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -381,7 +383,6 @@ namespace MobScreenV4
                                     if (head <= config.stayPointCnt)
                                     {
                                         //这里应该执行控制器到位之后的操作  播图片或者视频
-                                        //actAfterInPosition();
                                         this.BeginInvoke(AckAfterInPosition);
                                     }
                                     else
@@ -474,6 +475,8 @@ namespace MobScreenV4
             //定时模式
             if (config.running_mode == "time_con")
             {
+                //播放视频
+                play(config.stayPoint_Info[config.motor.stayPointact].file_path);
                 //读取当前停留点所需要的停留时间
                 if (!timer_timeControl.Enabled)
                     timer_timeControl.Enabled = true;
@@ -481,6 +484,21 @@ namespace MobScreenV4
                 timer_timeControl.Stop();
                 timer_timeControl.Start();
             }
+        }
+
+        //向播控软件发送UDP数据包
+        private void play(string file_path)
+        {
+            sendUDPPackage(file_path);
+        }
+
+        private void sendUDPPackage(string content)
+        {
+            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            IPAddress endPoint = IPAddress.Parse("192.168.0.119");
+            byte[] sendbuf = Encoding.ASCII.GetBytes(content);
+            IPEndPoint ep = new IPEndPoint(endPoint, 2020);
+            socket.SendTo(sendbuf, ep);
         }
 
         //解析停留点信息
@@ -634,6 +652,8 @@ namespace MobScreenV4
                 config.motor.stayPointact = 0;
             config.motor.stayPointact++;
             gotoStayPoint(config.motor.stayPointact);
+            //视频关掉
+            sendUDPPackage("stop");
         }
 
         //运行到指定停留点

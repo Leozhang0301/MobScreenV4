@@ -1,7 +1,6 @@
 C:\Users\98558\Desktop\MobScreenV4\MobScreenV4\bin\Debug\MobScreenV4.exe.config
 C:\Users\98558\Desktop\MobScreenV4\MobScreenV4\bin\Debug\MobScreenV4.exe
 C:\Users\98558\Desktop\MobScreenV4\MobScreenV4\bin\Debug\MobScreenV4.pdb
-C:\Users\98558\Desktop\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.csproj.AssemblyReference.cache
 C:\Users\98558\Desktop\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.MainFrom.resources
 C:\Users\98558\Desktop\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.Properties.Resources.resources
 C:\Users\98558\Desktop\MobScreenV4\MobScreenV4\obj\Debug\MobScreenV4.csproj.GenerateResource.cache

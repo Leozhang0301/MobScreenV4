@@ -38,9 +38,10 @@ namespace MobScreenV4
             this.btn_run.FlatAppearance.BorderSize = 0;
             this.btn_run.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btn_run.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.btn_run.Location = new System.Drawing.Point(570, 100);
+            this.btn_run.Location = new System.Drawing.Point(760, 125);
+            this.btn_run.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_run.Name = "btn_run";
-            this.btn_run.Size = new System.Drawing.Size(114, 86);
+            this.btn_run.Size = new System.Drawing.Size(152, 108);
             this.btn_run.TabIndex = 0;
             this.btn_run.Text = "开始运行";
             this.btn_run.UseVisualStyleBackColor = true;
@@ -51,23 +52,24 @@ namespace MobScreenV4
             this.btn_stopRun.FlatAppearance.BorderSize = 0;
             this.btn_stopRun.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btn_stopRun.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.btn_stopRun.Location = new System.Drawing.Point(570, 242);
+            this.btn_stopRun.Location = new System.Drawing.Point(760, 302);
+            this.btn_stopRun.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_stopRun.Name = "btn_stopRun";
-            this.btn_stopRun.Size = new System.Drawing.Size(114, 86);
+            this.btn_stopRun.Size = new System.Drawing.Size(152, 108);
             this.btn_stopRun.TabIndex = 1;
             this.btn_stopRun.Text = "停止运行";
             this.btn_stopRun.UseVisualStyleBackColor = true;
             // 
             // MainCtrlForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(871, 558);
+            this.ClientSize = new System.Drawing.Size(1161, 698);
             this.Controls.Add(this.btn_stopRun);
             this.Controls.Add(this.btn_run);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainCtrlForm";
             this.Text = "MainCtrlForm";
             this.ResumeLayout(false);
