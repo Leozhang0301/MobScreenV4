@@ -36,7 +36,6 @@ namespace MobScreenV4
             askStayPointNow();
             Thread.Sleep(200);
             //form.manual_ask = false;
-
             startRun();
         }
 

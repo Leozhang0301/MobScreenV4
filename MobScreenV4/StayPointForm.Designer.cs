@@ -31,6 +31,12 @@ namespace MobScreenV4
         {
             this.components = new System.ComponentModel.Container();
             this.stayPointGridView = new System.Windows.Forms.DataGridView();
+            this.cnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.distance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stayTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.filePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.offsides = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btn_readCtl = new System.Windows.Forms.Button();
             this.btn_writeCtl = new System.Windows.Forms.Button();
@@ -55,12 +61,6 @@ namespace MobScreenV4
             this.btn_forward = new System.Windows.Forms.Button();
             this.consoleBox = new System.Windows.Forms.RichTextBox();
             this.timer_refreshUI = new System.Windows.Forms.Timer(this.components);
-            this.cnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.distance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stayTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.filePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.offsides = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.stayPointGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -86,7 +86,53 @@ namespace MobScreenV4
             this.stayPointGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.stayPointGridView.Size = new System.Drawing.Size(732, 149);
             this.stayPointGridView.TabIndex = 0;
+            this.stayPointGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.stayPointGridView_CellEndEdit);
             this.stayPointGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.stayPointGridView_CellMouseDoubleClick);
+            // 
+            // cnt
+            // 
+            this.cnt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cnt.HeaderText = "序号";
+            this.cnt.MinimumWidth = 6;
+            this.cnt.Name = "cnt";
+            this.cnt.Width = 40;
+            // 
+            // distance
+            // 
+            this.distance.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.distance.HeaderText = "运行距离(MM)";
+            this.distance.MinimumWidth = 6;
+            this.distance.Name = "distance";
+            // 
+            // stayTime
+            // 
+            this.stayTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.stayTime.HeaderText = "停留时间(S)";
+            this.stayTime.MinimumWidth = 6;
+            this.stayTime.Name = "stayTime";
+            // 
+            // filePath
+            // 
+            this.filePath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.filePath.HeaderText = "文本路径";
+            this.filePath.MinimumWidth = 6;
+            this.filePath.Name = "filePath";
+            // 
+            // remarks
+            // 
+            this.remarks.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.remarks.HeaderText = "备注";
+            this.remarks.MinimumWidth = 6;
+            this.remarks.Name = "remarks";
+            this.remarks.Width = 60;
+            // 
+            // offsides
+            // 
+            this.offsides.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.offsides.HeaderText = "底图偏移";
+            this.offsides.MinimumWidth = 6;
+            this.offsides.Name = "offsides";
+            this.offsides.Width = 70;
             // 
             // groupBox1
             // 
@@ -358,51 +404,6 @@ namespace MobScreenV4
             // timer_refreshUI
             // 
             this.timer_refreshUI.Tick += new System.EventHandler(this.timer_refreshUI_Tick);
-            // 
-            // cnt
-            // 
-            this.cnt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cnt.HeaderText = "序号";
-            this.cnt.MinimumWidth = 6;
-            this.cnt.Name = "cnt";
-            this.cnt.Width = 40;
-            // 
-            // distance
-            // 
-            this.distance.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.distance.HeaderText = "运行距离(MM)";
-            this.distance.MinimumWidth = 6;
-            this.distance.Name = "distance";
-            // 
-            // stayTime
-            // 
-            this.stayTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.stayTime.HeaderText = "停留时间(S)";
-            this.stayTime.MinimumWidth = 6;
-            this.stayTime.Name = "stayTime";
-            // 
-            // filePath
-            // 
-            this.filePath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.filePath.HeaderText = "文本路径";
-            this.filePath.MinimumWidth = 6;
-            this.filePath.Name = "filePath";
-            // 
-            // remarks
-            // 
-            this.remarks.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.remarks.HeaderText = "备注";
-            this.remarks.MinimumWidth = 6;
-            this.remarks.Name = "remarks";
-            this.remarks.Width = 60;
-            // 
-            // offsides
-            // 
-            this.offsides.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.offsides.HeaderText = "底图偏移";
-            this.offsides.MinimumWidth = 6;
-            this.offsides.Name = "offsides";
-            this.offsides.Width = 70;
             // 
             // StayPointForm
             // 

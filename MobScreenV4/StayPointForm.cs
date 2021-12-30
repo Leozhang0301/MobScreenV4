@@ -435,5 +435,25 @@ namespace MobScreenV4
                 }
             }
         }
+
+        private void stayPointGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = stayPointGridView.CurrentCell.RowIndex;
+            //如果编辑的是距离
+            if (e.ColumnIndex == 1)
+                config.stayPoint_Info[index].distance = Convert.ToInt32(stayPointGridView.Rows[index].Cells[1].Value);
+            //如果编辑的是停留时间
+            else if (e.ColumnIndex == 2)
+                config.stayPoint_Info[index].stay_time = Convert.ToInt32(stayPointGridView.Rows[index].Cells[2].Value);
+            //如果编辑的是备注
+            else if (e.ColumnIndex == 4)
+                config.stayPoint_Info[index].remark = Convert.ToString(stayPointGridView.Rows[index].Cells[4].Value);
+            //底图偏移
+            else if (e.ColumnIndex == 5)
+                config.stayPoint_Info[index].bk_pic_cordation = Convert.ToInt32(stayPointGridView.Rows[index].Cells[5].Value);
+            //文件路径更改事件在双击事件内部
+
+            form.saveData();
+        }
     }
 }

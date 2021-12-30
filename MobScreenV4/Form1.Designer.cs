@@ -262,6 +262,7 @@ namespace MobScreenV4
             // 
             // pnlChild
             // 
+            this.pnlChild.AutoScroll = true;
             this.pnlChild.Location = new System.Drawing.Point(139, 50);
             this.pnlChild.Margin = new System.Windows.Forms.Padding(2);
             this.pnlChild.Name = "pnlChild";

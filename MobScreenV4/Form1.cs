@@ -159,6 +159,9 @@ namespace MobScreenV4
             //openChildForm(new DebugForm(config,CTRLSerialPort));
             debugForm = new DebugForm(config, this);
             openChildForm(debugForm);
+            //打开调试页面之后把运行模式改成debug
+            //防止前进后退的时候出发到12功能码
+            config.running_mode = "debug";
         }
 
         private Form activeForm = null;
@@ -370,23 +373,26 @@ namespace MobScreenV4
                                 //位于停留点
                                 if (head == tail)
                                 {
-                                    config.motor.inPosiFlag = true;
-                                    config.motor.stayPointact = head;
-                                    string play_url = config.stayPoint_Info[head].file_path;
-                                    //如果视频路径为空
-                                    if (play_url == "" || !File.Exists(play_url))
+                                    if (config.running_mode != "debug")
                                     {
-                                        MessageBox.Show("视频路径为空或者路径不存在，请先添加正确路径！");
-                                        return;
+                                        config.motor.inPosiFlag = true;
+                                        config.motor.stayPointact = head;
+                                        string play_url = config.stayPoint_Info[head].file_path;
+                                        //如果视频路径为空
+                                        if (play_url == "" || !File.Exists(play_url))
+                                        {
+                                            MessageBox.Show("视频路径为空或者路径不存在，请先添加正确路径！");
+                                            return;
+                                        }
+                                        //如果head合法
+                                        if (head <= config.stayPointCnt)
+                                        {
+                                            //这里应该执行控制器到位之后的操作  播图片或者视频
+                                            this.BeginInvoke(AckAfterInPosition);
+                                        }
+                                        else
+                                            MessageBox.Show("返回的停留点信息不合法");
                                     }
-                                    //如果head合法
-                                    if (head <= config.stayPointCnt)
-                                    {
-                                        //这里应该执行控制器到位之后的操作  播图片或者视频
-                                        this.BeginInvoke(AckAfterInPosition);
-                                    }
-                                    else
-                                        MessageBox.Show("返回的停留点信息不合法");
                                 }
                             }
                             //测量有效距离
@@ -476,7 +482,7 @@ namespace MobScreenV4
             if (config.running_mode == "time_con")
             {
                 //播放视频
-                play(config.stayPoint_Info[config.motor.stayPointact].file_path);
+                play_content(config.stayPoint_Info[config.motor.stayPointact].file_path);
                 //读取当前停留点所需要的停留时间
                 if (!timer_timeControl.Enabled)
                     timer_timeControl.Enabled = true;
@@ -487,15 +493,20 @@ namespace MobScreenV4
         }
 
         //向播控软件发送UDP数据包
-        private void play(string file_path)
+        private void play_content(string file_path)
         {
             sendUDPPackage(file_path);
+        }
+        //停止播放视频
+        private void stop_content()
+        {
+            sendUDPPackage("stop");
         }
 
         private void sendUDPPackage(string content)
         {
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            IPAddress endPoint = IPAddress.Parse("192.168.0.119");
+            IPAddress endPoint = IPAddress.Parse("127.0.0.1");
             byte[] sendbuf = Encoding.ASCII.GetBytes(content);
             IPEndPoint ep = new IPEndPoint(endPoint, 2020);
             socket.SendTo(sendbuf, ep);
@@ -653,7 +664,7 @@ namespace MobScreenV4
             config.motor.stayPointact++;
             gotoStayPoint(config.motor.stayPointact);
             //视频关掉
-            sendUDPPackage("stop");
+            stop_content();
         }
 
         //运行到指定停留点
