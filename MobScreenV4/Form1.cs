@@ -33,6 +33,7 @@ namespace MobScreenV4
         public StayPointForm stayPointForm;
         public bool manual_ask = false;  //手动查询控制器位置标志位
         private static byte moveDirection=0;  //0为向左移动   1为向右移动  3为停止状态
+        private bool dao_xu_flag=false;//正在倒序过程中的标志位
         #endregion
         #region 拖拽窗口导入外部函数
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -50,7 +51,6 @@ namespace MobScreenV4
         public MainFrom()
         {
             InitializeComponent();
-            openChildForm(new MainCtrlForm(config,this));
             config = new Config();
             //第一次初始化配置文件
             if (File.Exists("UserData.bkpokn") == false)
@@ -72,6 +72,7 @@ namespace MobScreenV4
             #endregion
             //获取本机所有端口号
             szPorts = SerialPort.GetPortNames();
+            openChildForm(new MainCtrlForm(config, this));
             //应该查询一下控制器内部存储的信息 跟配置文件保持同步
         }
 
@@ -660,8 +661,22 @@ namespace MobScreenV4
         public void goToNextPoint()
         {
             if (config.motor.stayPointact == config.stayPointCnt)
-                config.motor.stayPointact = 0;
-            config.motor.stayPointact++;
+            {
+                if (config.reverse_flag)
+                    dao_xu_flag = true;
+                else
+                    config.motor.stayPointact = 0;
+            }
+            //如果正在倒序往回
+            if (dao_xu_flag)
+            {
+                if (config.motor.stayPointact > 1)
+                    config.motor.stayPointact--;
+                else
+                    dao_xu_flag = false;
+            }
+            else
+                config.motor.stayPointact++;
             gotoStayPoint(config.motor.stayPointact);
             //视频关掉
             stop_content();

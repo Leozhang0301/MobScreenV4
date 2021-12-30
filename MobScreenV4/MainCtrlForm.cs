@@ -99,5 +99,48 @@ namespace MobScreenV4
                 MessageBox.Show("通信配置出错,不是网络串口的其中一个");
             }
         }
+        #region 运行模式选择
+        //时间控制复选框
+        private void radioBtn_timeCtl_MouseClick(object sender, MouseEventArgs e)
+        {
+            config.running_mode = "time_con";
+            form.saveData();
+        }
+        //节目控制复选框
+        private void radioBtn_contentCtl_MouseClick(object sender, MouseEventArgs e)
+        {
+            config.running_mode = "film_con";
+            form.saveData();
+        }
+        //只运行一次复选框
+        private void radioBtn_runOnce_MouseClick(object sender, MouseEventArgs e)
+        {
+            config.running_mode = "run_once";
+            form.saveData();
+        }
+        //手动控制复选框
+        private void radioBtn_manual_MouseClick(object sender, MouseEventArgs e)
+        {
+            config.running_mode = "manual_con";
+            form.saveData();
+        }
+        #endregion
+        #region 巡航模式选择
+        private void radioBtn_reverse_MouseClick(object sender, MouseEventArgs e)
+        {
+            config.reverse_flag = true;
+            form.saveData();
+        }
+        private void radioBtn_notReverse_MouseClick(object sender, MouseEventArgs e)
+        {
+            config.reverse_flag = false;
+            form.saveData();
+        }
+        #endregion
+
+        private void btn_stopRun_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

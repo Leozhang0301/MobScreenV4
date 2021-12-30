@@ -117,6 +117,7 @@ namespace MobScreenV4
         //前进按钮接口
         private void btn_forward_Click(object sender, EventArgs e)
         {
+            config.running_mode = "debug";
             if (!mov_flag)
             {
                 UInt16 crc;
@@ -153,6 +154,7 @@ namespace MobScreenV4
         //后退按钮接口
         private void btn_back_Click(object sender, EventArgs e)
         {
+            config.running_mode = "debug";
             if (!mov_flag)
             {
                 UInt16 crc;
@@ -192,7 +194,7 @@ namespace MobScreenV4
             //配置文件里面存储的现在位置
             text_dis.Text= config.motor.currentPosition.ToString();
             text_time.Text = "10";
-            text_filePath.Text = "未设置视频，鼠标右键选择添加！";
+            text_filePath.Text = "未设置视频，鼠标双击选择添加！";
             addStayPoint(text_dis.Text, text_time.Text, text_filePath.Text, " ");
             MessageBox.Show("停留点信息已添加! 位置信息" + config.motor.currentPosition.ToString() + "mm");
         }
@@ -321,7 +323,7 @@ namespace MobScreenV4
                 {
                     //避免同步过来的停留点数量比电脑存储多，文件名为null出错问题
                     if (config.stayPoint_Info[i].file_path == null)
-                        config.stayPoint_Info[i].file_path = "未设置视频，鼠标右键选择添加！";
+                        config.stayPoint_Info[i].file_path = "未设置视频，鼠标双击选择添加！";
                     if (config.stayPoint_Info[i].remark == null)
                         config.stayPoint_Info[i].remark = " ";
                     stayPointGridView.Rows.Add(tmp.ToString(), config.stayPoint_Info[i].distance.ToString(), config.stayPoint_Info[i].stay_time.ToString(), config.stayPoint_Info[i].file_path, config.stayPoint_Info[i].remark, config.stayPoint_Info[i].bk_pic_cordation);

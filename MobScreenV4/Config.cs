@@ -19,6 +19,7 @@ namespace MobScreenV4
         public stayPointInfo[] stayPoint_Info;
         public string running_mode = "time_con";//time_con 定时模式/film_con 节目模式/run_once 只运行一遍
         public int stayPointCnt = 0;//记录停留点的个数
+        public bool reverse_flag = false;//到终点之后是否倒序回来标志
         //停留点信息结构体
         [Serializable]
         public struct stayPointInfo
