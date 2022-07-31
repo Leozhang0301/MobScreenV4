@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -35,7 +36,7 @@ namespace MobScreenV4
             form.manual_ask = true;
             askStayPointNow();
             Thread.Sleep(200);
-            //form.manual_ask = false;
+            form.manual_ask = false;
             startRun();
         }
 
@@ -141,6 +142,40 @@ namespace MobScreenV4
         private void btn_stopRun_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void axWindowsMediaPlayer1_ClickEvent(object sender, AxWMPLib._WMPOCXEvents_ClickEvent e)
+        {
+            //播放器按钮显示
+            showBtn();
+        }
+        private void showBtn()
+        {
+            addMediaList("1");
+            mediaPlayer.Ctlcontrols.play();
+        }
+        //添加播放列表
+        private void addMediaList(string stayPoint)
+        {
+            string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resource\\"+stayPoint);
+            if (!Directory.Exists(dir))
+            {
+                MessageBox.Show("未找到目录\n请在resource/文件目录下新建以停留点为名称的文件夹");
+                return;
+            }
+            bool existsFile = Directory.GetFiles(dir).Length > 0;
+            if (!existsFile)
+            {
+                MessageBox.Show("当前停留点未找到播放资源");
+                return;
+            }
+            DirectoryInfo info = new DirectoryInfo(dir);
+            mediaPlayer.currentPlaylist = mediaPlayer.newPlaylist(stayPoint, "");
+            foreach(var file in info.GetFiles())
+            {
+                string path = new Uri(file.FullName).ToString();
+                mediaPlayer.currentPlaylist.appendItem(mediaPlayer.newMedia(path));
+            }
         }
     }
 }

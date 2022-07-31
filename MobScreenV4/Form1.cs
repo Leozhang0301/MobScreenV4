@@ -72,6 +72,11 @@ namespace MobScreenV4
             #endregion
             //获取本机所有端口号
             szPorts = SerialPort.GetPortNames();
+            for(int i = 0; i < szPorts.Length; i++)
+            {
+                SerialPortsBox.Items.Add(szPorts[i]);
+            }
+            SerialPortsBox.SelectedIndex = 0;
             openChildForm(new MainCtrlForm(config, this));
             //应该查询一下控制器内部存储的信息 跟配置文件保持同步
         }
@@ -425,22 +430,33 @@ namespace MobScreenV4
                                 config.motor.currentPosition = instr[6];
                                 config.motor.currentPosition <<= 8;
                                 config.motor.currentPosition |= instr[7];
-                                //判断指令内部方向
-                                if (instr[8] == 1)
+                                if (config.running_mode == "debug")
                                 {
-                                    //如果配置文件里为左起点
-                                    if (config.startPosition == 0)
-                                        moveDirection = 0;
-                                    else
-                                        moveDirection = 1;
+                                    this.BeginInvoke((MethodInvoker)delegate
+                                    {
+                                        stayPointForm.refreshCurPosLab(Convert.ToString((int)config.motor.currentPosition));
+                                    });
                                 }
                                 else
                                 {
-                                    if (config.startPosition == 0)
-                                        moveDirection = 1;
-                                    else
-                                        moveDirection = 0;
+                                    //底图移动
                                 }
+                                ////判断指令内部方向
+                                //if (instr[8] == 1)
+                                //{
+                                //    //如果配置文件里为左起点
+                                //    if (config.startPosition == 0)
+                                //        moveDirection = 0;
+                                //    else
+                                //        moveDirection = 1;
+                                //}
+                                //else
+                                //{
+                                //    if (config.startPosition == 0)
+                                //        moveDirection = 1;
+                                //    else
+                                //        moveDirection = 0;
+                                //}
                             }
                         }
                         else
@@ -716,6 +732,18 @@ namespace MobScreenV4
                 //ShowTipsInfo("通信配置出错,不是网络串口的其中一个", Color.Red, byte_count);
                 MessageBox.Show("通信配置出错,不是网络串口的其中一个");
             }
+        }
+
+        private void CntSerialPort_Click(object sender, EventArgs e)
+        {
+            if (openPort(szPorts[SerialPortsBox.SelectedIndex]))
+            {
+                MessageBox.Show("串口连接成功");
+                config.portName = szPorts[SerialPortsBox.SelectedIndex];
+                saveData();
+            }
+            else
+                MessageBox.Show("串口打开失败");
         }
     }
 }

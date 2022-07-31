@@ -47,6 +47,8 @@ namespace MobScreenV4
             this.pnlChild = new System.Windows.Forms.Panel();
             this.CTRLSerialPort = new System.IO.Ports.SerialPort(this.components);
             this.timer_timeControl = new System.Windows.Forms.Timer(this.components);
+            this.SerialPortsBox = new System.Windows.Forms.ComboBox();
+            this.CntSerialPort = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -55,6 +57,8 @@ namespace MobScreenV4
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
+            this.panel1.Controls.Add(this.CntSerialPort);
+            this.panel1.Controls.Add(this.SerialPortsBox);
             this.panel1.Controls.Add(this.CtrlVerText);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -68,7 +72,7 @@ namespace MobScreenV4
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(139, 611);
+            this.panel1.Size = new System.Drawing.Size(174, 764);
             this.panel1.TabIndex = 0;
             // 
             // CtrlVerText
@@ -76,10 +80,10 @@ namespace MobScreenV4
             this.CtrlVerText.AutoSize = true;
             this.CtrlVerText.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.CtrlVerText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.CtrlVerText.Location = new System.Drawing.Point(79, 576);
+            this.CtrlVerText.Location = new System.Drawing.Point(99, 720);
             this.CtrlVerText.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CtrlVerText.Name = "CtrlVerText";
-            this.CtrlVerText.Size = new System.Drawing.Size(59, 22);
+            this.CtrlVerText.Size = new System.Drawing.Size(73, 27);
             this.CtrlVerText.TabIndex = 8;
             this.CtrlVerText.Text = "label1";
             // 
@@ -88,10 +92,10 @@ namespace MobScreenV4
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.label2.Location = new System.Drawing.Point(10, 582);
+            this.label2.Location = new System.Drawing.Point(12, 728);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 17);
+            this.label2.Size = new System.Drawing.Size(88, 19);
             this.label2.TabIndex = 7;
             this.label2.Text = "控制器版本:";
             // 
@@ -100,10 +104,10 @@ namespace MobScreenV4
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.label1.Location = new System.Drawing.Point(10, 546);
+            this.label1.Location = new System.Drawing.Point(12, 682);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 17);
+            this.label1.Size = new System.Drawing.Size(88, 19);
             this.label1.TabIndex = 6;
             this.label1.Text = "上位机版本:";
             // 
@@ -112,10 +116,10 @@ namespace MobScreenV4
             this.versionText.AutoSize = true;
             this.versionText.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.versionText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.versionText.Location = new System.Drawing.Point(80, 542);
+            this.versionText.Location = new System.Drawing.Point(100, 678);
             this.versionText.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.versionText.Name = "versionText";
-            this.versionText.Size = new System.Drawing.Size(59, 22);
+            this.versionText.Size = new System.Drawing.Size(73, 27);
             this.versionText.TabIndex = 5;
             this.versionText.Text = "label1";
             // 
@@ -127,10 +131,10 @@ namespace MobScreenV4
             this.BtnDebug.Font = new System.Drawing.Font("微软雅黑", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BtnDebug.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.BtnDebug.Image = global::MobScreenV4.Properties.Resources.bianji;
-            this.BtnDebug.Location = new System.Drawing.Point(0, 155);
+            this.BtnDebug.Location = new System.Drawing.Point(0, 194);
             this.BtnDebug.Margin = new System.Windows.Forms.Padding(2);
             this.BtnDebug.Name = "BtnDebug";
-            this.BtnDebug.Size = new System.Drawing.Size(139, 35);
+            this.BtnDebug.Size = new System.Drawing.Size(174, 44);
             this.BtnDebug.TabIndex = 4;
             this.BtnDebug.Text = "调试";
             this.BtnDebug.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -146,10 +150,10 @@ namespace MobScreenV4
             this.BtnRegister.Font = new System.Drawing.Font("微软雅黑", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BtnRegister.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.BtnRegister.Image = global::MobScreenV4.Properties.Resources.jinggao;
-            this.BtnRegister.Location = new System.Drawing.Point(0, 120);
+            this.BtnRegister.Location = new System.Drawing.Point(0, 150);
             this.BtnRegister.Margin = new System.Windows.Forms.Padding(2);
             this.BtnRegister.Name = "BtnRegister";
-            this.BtnRegister.Size = new System.Drawing.Size(139, 35);
+            this.BtnRegister.Size = new System.Drawing.Size(174, 44);
             this.BtnRegister.TabIndex = 3;
             this.BtnRegister.Text = "注册";
             this.BtnRegister.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -165,10 +169,10 @@ namespace MobScreenV4
             this.BtnStayPoint.Font = new System.Drawing.Font("微软雅黑", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BtnStayPoint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.BtnStayPoint.Image = global::MobScreenV4.Properties.Resources.staypoint;
-            this.BtnStayPoint.Location = new System.Drawing.Point(0, 85);
+            this.BtnStayPoint.Location = new System.Drawing.Point(0, 106);
             this.BtnStayPoint.Margin = new System.Windows.Forms.Padding(2);
             this.BtnStayPoint.Name = "BtnStayPoint";
-            this.BtnStayPoint.Size = new System.Drawing.Size(139, 35);
+            this.BtnStayPoint.Size = new System.Drawing.Size(174, 44);
             this.BtnStayPoint.TabIndex = 2;
             this.BtnStayPoint.Text = "停留点";
             this.BtnStayPoint.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -184,10 +188,10 @@ namespace MobScreenV4
             this.BtnMainCtrl.Font = new System.Drawing.Font("微软雅黑", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BtnMainCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.BtnMainCtrl.Image = global::MobScreenV4.Properties.Resources.tiaoshi;
-            this.BtnMainCtrl.Location = new System.Drawing.Point(0, 50);
+            this.BtnMainCtrl.Location = new System.Drawing.Point(0, 62);
             this.BtnMainCtrl.Margin = new System.Windows.Forms.Padding(2);
             this.BtnMainCtrl.Name = "BtnMainCtrl";
-            this.BtnMainCtrl.Size = new System.Drawing.Size(139, 35);
+            this.BtnMainCtrl.Size = new System.Drawing.Size(174, 44);
             this.BtnMainCtrl.TabIndex = 1;
             this.BtnMainCtrl.Text = "主控制";
             this.BtnMainCtrl.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -202,26 +206,26 @@ namespace MobScreenV4
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(139, 50);
+            this.panel2.Size = new System.Drawing.Size(174, 62);
             this.panel2.TabIndex = 0;
             // 
             // PnlNav
             // 
             this.PnlNav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.PnlNav.Location = new System.Drawing.Point(0, 111);
+            this.PnlNav.Location = new System.Drawing.Point(0, 139);
             this.PnlNav.Margin = new System.Windows.Forms.Padding(2);
             this.PnlNav.Name = "PnlNav";
-            this.PnlNav.Size = new System.Drawing.Size(2, 80);
+            this.PnlNav.Size = new System.Drawing.Size(2, 100);
             this.PnlNav.TabIndex = 0;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.minBtn);
             this.panel3.Controls.Add(this.closeBtn);
-            this.panel3.Location = new System.Drawing.Point(139, 0);
+            this.panel3.Location = new System.Drawing.Point(174, 0);
             this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(874, 50);
+            this.panel3.Size = new System.Drawing.Size(1092, 62);
             this.panel3.TabIndex = 1;
             this.panel3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel3_MouseDown);
             this.panel3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel3_MouseMove);
@@ -235,10 +239,10 @@ namespace MobScreenV4
             this.minBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.minBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.minBtn.Image = global::MobScreenV4.Properties.Resources.min;
-            this.minBtn.Location = new System.Drawing.Point(806, 0);
+            this.minBtn.Location = new System.Drawing.Point(1008, 0);
             this.minBtn.Margin = new System.Windows.Forms.Padding(2);
             this.minBtn.Name = "minBtn";
-            this.minBtn.Size = new System.Drawing.Size(34, 50);
+            this.minBtn.Size = new System.Drawing.Size(42, 62);
             this.minBtn.TabIndex = 1;
             this.minBtn.UseVisualStyleBackColor = false;
             this.minBtn.Click += new System.EventHandler(this.minBtn_Click);
@@ -252,10 +256,10 @@ namespace MobScreenV4
             this.closeBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.closeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.closeBtn.Image = global::MobScreenV4.Properties.Resources.close;
-            this.closeBtn.Location = new System.Drawing.Point(840, 0);
+            this.closeBtn.Location = new System.Drawing.Point(1050, 0);
             this.closeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.closeBtn.Name = "closeBtn";
-            this.closeBtn.Size = new System.Drawing.Size(34, 50);
+            this.closeBtn.Size = new System.Drawing.Size(42, 62);
             this.closeBtn.TabIndex = 0;
             this.closeBtn.UseVisualStyleBackColor = false;
             this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
@@ -263,10 +267,10 @@ namespace MobScreenV4
             // pnlChild
             // 
             this.pnlChild.AutoScroll = true;
-            this.pnlChild.Location = new System.Drawing.Point(139, 50);
+            this.pnlChild.Location = new System.Drawing.Point(174, 62);
             this.pnlChild.Margin = new System.Windows.Forms.Padding(2);
             this.pnlChild.Name = "pnlChild";
-            this.pnlChild.Size = new System.Drawing.Size(870, 558);
+            this.pnlChild.Size = new System.Drawing.Size(1088, 698);
             this.pnlChild.TabIndex = 2;
             // 
             // CTRLSerialPort
@@ -278,12 +282,30 @@ namespace MobScreenV4
             this.timer_timeControl.Interval = 1000;
             this.timer_timeControl.Tick += new System.EventHandler(this.timer_timeControl_Tick);
             // 
+            // SerialPortsBox
+            // 
+            this.SerialPortsBox.FormattingEnabled = true;
+            this.SerialPortsBox.Location = new System.Drawing.Point(16, 254);
+            this.SerialPortsBox.Name = "SerialPortsBox";
+            this.SerialPortsBox.Size = new System.Drawing.Size(80, 23);
+            this.SerialPortsBox.TabIndex = 9;
+            // 
+            // CntSerialPort
+            // 
+            this.CntSerialPort.Location = new System.Drawing.Point(105, 253);
+            this.CntSerialPort.Name = "CntSerialPort";
+            this.CntSerialPort.Size = new System.Drawing.Size(64, 23);
+            this.CntSerialPort.TabIndex = 10;
+            this.CntSerialPort.Text = "连接";
+            this.CntSerialPort.UseVisualStyleBackColor = true;
+            this.CntSerialPort.Click += new System.EventHandler(this.CntSerialPort_Click);
+            // 
             // MainFrom
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(1012, 611);
+            this.ClientSize = new System.Drawing.Size(1265, 764);
             this.Controls.Add(this.pnlChild);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
@@ -320,6 +342,8 @@ namespace MobScreenV4
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer_timeControl;
+        private System.Windows.Forms.Button CntSerialPort;
+        private System.Windows.Forms.ComboBox SerialPortsBox;
     }
 }
 

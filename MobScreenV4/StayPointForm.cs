@@ -38,7 +38,7 @@ namespace MobScreenV4
         private void btn_addPnt_Click(object sender, EventArgs e)
         {
             //如果距离/停留时间/文件路径为空
-            if (text_dis.Text == "" || text_time.Text == "" || text_filePath.Text == "" || text_filePath.Text == "点击浏览选择文件路径")
+            if (text_dis.Text == "" || text_time.Text == "" || text_filePath.Text == "")
             {
                 MessageBox.Show("请填写停留点完整信息");
             }
@@ -113,7 +113,11 @@ namespace MobScreenV4
             readStayPointInfo();
         }
 
-
+        //更新当前位置文本
+        public void refreshCurPosLab(string cur)
+        {
+            label_posi.Text = cur;
+        }
         //前进按钮接口
         private void btn_forward_Click(object sender, EventArgs e)
         {
@@ -193,9 +197,9 @@ namespace MobScreenV4
         {
             //配置文件里面存储的现在位置
             text_dis.Text= config.motor.currentPosition.ToString();
-            text_time.Text = "10";
-            text_filePath.Text = "未设置视频，鼠标双击选择添加！";
-            addStayPoint(text_dis.Text, text_time.Text, text_filePath.Text, " ");
+            //text_time.Text = "10";
+            //text_filePath.Text = "未设置视频，鼠标双击选择添加！";
+            //addStayPoint(text_dis.Text, text_time.Text, text_filePath.Text, " ");
             MessageBox.Show("停留点信息已添加! 位置信息" + config.motor.currentPosition.ToString() + "mm");
         }
         #endregion
